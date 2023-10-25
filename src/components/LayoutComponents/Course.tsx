@@ -31,7 +31,7 @@ export default function Course() {
             <form onSubmit={handleSubmit}>
                 <div className="p-4 rounded-md bg-gray-50 mt-3 ">
                     {/* Row 1 */}
-                    <div className="flex flex-row gap-2">
+                    <div className="flex md:flex-col sm:flex-col lg:flex-row  gap-2">
                         <div className="mb-4 w-full">
                             <label htmlFor="name" className="text-gray-400 text-sm font-medium mb-2">
                                 Category
@@ -64,7 +64,7 @@ export default function Course() {
                         </div>
                     </div>
                     {/* row-2 */}
-                    <div className="flex flex-row gap-2">
+                    <div className="flex lg:flex-row md:flex-col sm:flex-col gap-2">
                         <div className="mb-4 w-full">
                             <label htmlFor="name" className="text-gray-400 text-sm font-medium mb-2">
                                 Instructor name
@@ -97,7 +97,7 @@ export default function Course() {
                         </div>
                     </div>
                     {/* row-3 */}
-                    <div className="flex flex-row gap-2">
+                    <div className="flex lg:flex-row md:flex-col sm:flex-col gap-2">
                         <div className="mb-4 w-full">
                             <label htmlFor="name" className="text-gray-400 text-sm font-medium mb-2">
                                 Total Class

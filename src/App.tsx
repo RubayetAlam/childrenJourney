@@ -14,6 +14,7 @@ import Team from './components/LayoutComponents/Team'
 import Training from './components/LayoutComponents/Training'
 import User from './components/LayoutComponents/User'
 import Login from './components/Login'
+import Test from './components/_Test_'
 // import Header from './components/Header'
 // import SideMenu from './components/SideMenu'
 function App() {
@@ -35,6 +36,7 @@ function App() {
                     <Route path="subscription" element={<Subscription />} />
                 </Route>
                 <Route path="login" element={<Login />} />
+                <Route path="test" element={<Test />} />
             </Routes>
             {/* <SideMenu />
             <Header />
