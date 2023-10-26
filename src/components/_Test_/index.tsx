@@ -1,89 +1,63 @@
-import { useState } from 'react' // import state
+import { useState } from 'react'
+import { BiUserCircle } from 'react-icons/bi'
+import { FiMenu } from 'react-icons/fi'
+import { Link } from 'react-router-dom'
+import SideMenuNavigations from '../lib/consts/navigations'
 
-export default function Test() {
-    const [isNavOpen, setIsNavOpen] = useState(false) // initiate isNavOpen state with false
+interface NavigationItem {
+    key: string
+    path: string
+    label: string
+    icons: JSX.Element
+}
+
+export default function SideMenu() {
+    const [menuOpen, setMenuOpen] = useState<boolean>(true)
+
+    const toggleMenu = () => {
+        setMenuOpen((prev) => !prev)
+    }
 
     return (
-        <div className="flex items-center justify-between border-b border-gray-400 py-8">
-            <a href="/">
-                <img src="https://designbygio.it/images/logo.png" alt="logo" />
-            </a>
-            <nav>
-                <section className="MOBILE-MENU flex lg:hidden">
-                    <div
-                        className="HAMBURGER-ICON space-y-2"
-                        onClick={() => setIsNavOpen((prev) => !prev)} // toggle isNavOpen state on click
+        <div className={`flex flex-col bg-gray-50 ${menuOpen ? 'w-60' : 'w-12'} p-3 rounded-md`}>
+            <button
+                className="lg:hidden rounded-3xl border-none radio-button text-indigo-400 w-16"
+                onClick={toggleMenu}
+            >
+                <FiMenu />
+            </button>
+            <div
+                className={`flex flex-row p-2 w-${menuOpen ? '3/5' : 'full'} text-lg pb-6 items-center`}
+                style={{ transform: `translateX(${menuOpen ? 0 : -320}px)` }}
+            >
+                {menuOpen && (
+                    <button
+                        className={`rounded-3xl border-none radio-button text-indigo-400 ${menuOpen ? '' : 'w-16'}`}
                     >
-                        <span className="block h-0.5 w-8 animate-pulse bg-gray-600"></span>
-                        <span className="block h-0.5 w-8 animate-pulse bg-gray-600"></span>
-                        <span className="block h-0.5 w-8 animate-pulse bg-gray-600"></span>
-                    </div>
-
-                    <div className={isNavOpen ? 'showMenuNav' : 'hideMenuNav'}>
-                        {' '}
-                        // toggle class based on isNavOpen state
-                        <div
-                            className="CROSS-ICON absolute top-0 right-0 px-8 py-8"
-                            onClick={() => setIsNavOpen(false)} // change isNavOpen state to false to close the menu
-                        >
-                            <svg
-                                className="h-8 w-8 text-gray-600"
-                                viewBox="0 0 24 24"
-                                fill="none"
-                                stroke="currentColor"
-                                strokeWidth="2"
-                                strokeLinecap="round"
-                                strokeLinejoin="round"
-                            >
-                                <line x1="18" y1="6" x2="6" y2="18" />
-                                <line x1="6" y1="6" x2="18" y2="18" />
-                            </svg>
-                        </div>
-                        <ul className="MENU-LINK-MOBILE-OPEN flex flex-col items-center justify-between min-h-[250px]">
-                            <li className="border-b border-gray-400 my-8 uppercase">
-                                <a href="/about">About</a>
-                            </li>
-                            <li className="border-b border-gray-400 my-8 uppercase">
-                                <a href="/portfolio">Portfolio</a>
-                            </li>
-                            <li className="border-b border-gray-400 my-8 uppercase">
-                                <a href="/contact">Contact</a>
-                            </li>
-                        </ul>
-                    </div>
-                </section>
-
-                <ul className="DESKTOP-MENU hidden space-x-8 lg:flex">
-                    <li>
-                        <a href="/about">About</a>
-                    </li>
-                    <li>
-                        <a href="/portfolio">Portfolio</a>
-                    </li>
-                    <li>
-                        <a href="/contact">Contact</a>
-                    </li>
-                </ul>
-            </nav>
-            <style>{`
-      .hideMenuNav {
-        display: none;
-      }
-      .showMenuNav {
-        display: block;
-        position: absolute;
-        width: 100%;
-        height: 100vh;
-        top: 0;
-        left: 0;
-        background: white;
-        z-index: 10;
-        display: flex;
-        flex-direction: column;
-        justify-content: space-evenly;
-        align-items: center;
-      }
-    `}</style>
+                        <BiUserCircle />
+                    </button>
+                )}
+                {menuOpen && <span className="pl-2 text-indigo-400 font-medium">Welcome</span>}
+            </div>
+            {menuOpen && (
+                <div>
+                    {SideMenuNavigations.map((item) => (
+                        <SideMenuLink key={item.key} item={item} />
+                    ))}
+                </div>
+            )}
         </div>
+    )
+}
+
+export function SideMenuLink({ item }: { item: NavigationItem }) {
+    return (
+        <Link
+            to={item.path}
+            className="transition ease-in-out delay-100 flex items-center gap-2 py-2 justify-between font-medium text-indigo-400 rounded-md hover:bg-indigo-300 hover:text-indigo-700 hover:scale-110 hover:-translate-y-1"
+        >
+            {item.label}
+            <span className="text-xl">{item.icons}</span>
+        </Link>
     )
 }
