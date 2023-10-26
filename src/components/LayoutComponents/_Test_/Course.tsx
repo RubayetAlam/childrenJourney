@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { SubmitHandler, useForm } from 'react-hook-form'
-import CreateClassField from '../../contexts/CreateClassField'
+import CreateClassField from '../../../contexts/CreateClassField'
 interface FormData {
     name: string
     course: string
